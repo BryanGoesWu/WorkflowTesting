@@ -1,35 +1,28 @@
-# This is a basic workflow to help you get started with Actions
+name: Update work item state when PR is merged, opened, closed or when branch is created
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+   pull_request:
+    branches: [master]
+    types: [opened, closed]
+   push:
+    branches: [master]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  alert:
     runs-on: ubuntu-latest
+    name: Test workflow
+    steps:       
+    - uses: MarcinGadomski94/pr-update-work-item-state@master
+      env: 
+        gh_token : '${{ secrets.GH_TOKEN }}'   
+        ado_token: '${{ secrets.ADO_PERSONAL_ACCESS_TOKEN }}'
+        ado_organization: '${{ secrets.ADO_ORGANIZATION }}'
+        ado_project: '${{ secrets.ADO_PROJECT }}'
+        closedstate: 'Done'
+        propenstate: 'Ready'
+        inprogressstate: 'In Progress' 
+        ghrepo_owner: 'Contoso'
+        ghrepo: 'Contoso-Microservice'
+        pull_number: ${{github.event.number}} 
+        branch_name: ${{ github.ref }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: Update work item state when PR is merged, opened, closed or when branch is created
-      # You may pin to the exact commit or the version.
-      # uses: MarcinGadomski94/pr-update-work-item-state@3b2fc74ce1455d87fa636e6591cf1d27a2e75d06
-      - uses: MarcinGadomski94/pr-update-work-item-state@v2.0.3
