@@ -7,6 +7,7 @@ on:
    push:
     branches: [master]
    issues:
+    types: opened
     
 
 jobs:
@@ -16,14 +17,14 @@ jobs:
     steps:       
     - uses: MarcinGadomski94/pr-update-work-item-state@master
       env: 
-        gh_token : '${{ secrets.GH_TOKEN }}'   
-        ado_token: '${{ secrets.ADO_PERSONAL_ACCESS_TOKEN }}'
-        ado_project: '${{ secrets.ADO_PROJECT }}'
+        gh_token : '${{ secrets.GITHUB_TOKEN }}'   
+        ado_token: '${{ secrets.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 }}'
+        ado_project: '${{ secrets.Automation Testing }}'
         closedstate: 'Done'
         propenstate: 'Ready'
         inprogressstate: 'In Progress' 
         ghrepo_owner: 'BryanGoesWu'
-        ghrepo: 'WoekflowTesting'
+        ghrepo: 'WorkflowTesting'
         pull_number: ${{github.event.number}} 
         branch_name: ${{ github.ref }}
 
