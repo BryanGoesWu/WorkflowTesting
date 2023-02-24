@@ -3,9 +3,11 @@ name: Update work item state when PR is merged, opened, closed or when branch is
 on:
    pull_request:
     branches: [master]
-    types: [opened, closed]
+    types: [opened, closed, edited]
    push:
     branches: [master]
+   issues:
+    
 
 jobs:
   alert:
@@ -16,13 +18,12 @@ jobs:
       env: 
         gh_token : '${{ secrets.GH_TOKEN }}'   
         ado_token: '${{ secrets.ADO_PERSONAL_ACCESS_TOKEN }}'
-        ado_organization: '${{ secrets.ADO_ORGANIZATION }}'
         ado_project: '${{ secrets.ADO_PROJECT }}'
         closedstate: 'Done'
         propenstate: 'Ready'
         inprogressstate: 'In Progress' 
-        ghrepo_owner: 'Contoso'
-        ghrepo: 'Contoso-Microservice'
+        ghrepo_owner: 'BryanGoesWu'
+        ghrepo: 'WoekflowTesting'
         pull_number: ${{github.event.number}} 
         branch_name: ${{ github.ref }}
 
