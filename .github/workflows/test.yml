@@ -7,7 +7,7 @@ on:
    push:
     branches: [master]
    issues:
-    types: opened
+    types: [opened, edited]
     
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
       env: 
         gh_token : '${{ secrets.GITHUB_TOKEN }}'   
         ado_token: '${{ secrets.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 }}'
-        ado_project: '${{ secrets.Automation Testing }}'
+        ado_project: '${{ secrets.Automation_Testing }}'
         closedstate: 'Done'
         propenstate: 'Ready'
         inprogressstate: 'In Progress' 
