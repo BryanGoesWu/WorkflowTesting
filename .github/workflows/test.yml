@@ -1,11 +1,6 @@
 name: Update work item state when PR is merged, opened, closed or when branch is created
 
 on:
-   pull_request:
-    branches: [master]
-    types: [opened, closed, edited]
-   push:
-    branches: [master]
    issues:
     branches: [master]
     types: [opened, edited]
@@ -22,8 +17,6 @@ jobs:
         ado_token: '${{ secrets.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 }}'
         ado_project: '${{ secrets.Automation_Testing }}'
         closedstate: 'Done'
-        propenstate: 'Ready'
-        inprogressstate: 'In Progress' 
         ghrepo_owner: 'BryanGoesWu'
         ghrepo: 'WorkflowTesting'
         pull_number: ${{github.event.number}} 
