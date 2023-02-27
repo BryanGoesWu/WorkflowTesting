@@ -15,13 +15,13 @@ jobs:
         with:
           user: ${{ github.repository_owner }}
           project-number: 1
-          github-token: "${{ secrets.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 }}"
+          github-token: "${{ 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 }}"
         id: project-add
       - uses: austenstone/project-update@main
         with:
           user: ${{ github.repository_owner }}
           project-number: 5
-          github-token: "${{ secrets.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 }}"
+          github-token: "${{ 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 }}"
           item-id: ${{ steps.project-add.outputs.id }}
           field-names: product,priority
           field-values: back-end,high
