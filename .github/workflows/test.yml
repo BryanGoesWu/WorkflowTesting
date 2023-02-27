@@ -1,24 +1,28 @@
-name: Update work item state when PR is merged, opened, closed or when branch is created
-
+name: "Add Issue/PR to Project"
 on:
-   issues:
-    branches: [master]
-    types: [opened, edited]
-    
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
 
 jobs:
-  alert:
+  add_to_project:
+    name: Add to Project
     runs-on: ubuntu-latest
-    name: Test workflow
-    steps:       
-    - uses: MarcinGadomski94/pr-update-work-item-state@master
-      env: 
-        gh_token : '${{ secrets.GITHUB_TOKEN }}'   
-        ado_token: '${{ secrets.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 }}'
-        ado_project: '${{ secrets.Automation_Testing }}'
-        closedstate: 'Done'
-        ghrepo_owner: 'BryanGoesWu'
-        ghrepo: 'WorkflowTesting'
-        pull_number: ${{github.event.number}} 
-        branch_name: ${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: austenstone/project-add@main
+        with:
+          user: ${{ github.repository_owner }}
+          project-number: 5
+          github-token: "${{ secrets.MY_TOKEN }}"
+        id: project-add
+      - uses: austenstone/project-update@main
+        with:
+          user: ${{ github.repository_owner }}
+          project-number: 5
+          github-token: "${{ secrets.MY_TOKEN }}"
+          item-id: ${{ steps.project-add.outputs.id }}
+          field-names: product,priority
+          field-values: back-end,high
 
