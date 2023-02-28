@@ -1,4 +1,4 @@
-name: Update items in projecr
+name: Update items in project
 on:
   issues:
     types: [closed]
@@ -13,7 +13,7 @@ jobs:
           # The number of the project. Get this from the URL.
           project-number: 1
           # The item Id of the issue or pull request.
-          item-id: 12
+          item-id: 11
           # The GITHUB_TOKEN secret
           github-token: ${{ secrets.token }}
           # The user that owns the project.
