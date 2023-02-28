@@ -1,28 +1,26 @@
-name: "Add Issue/PR to Project"
+name: Update items in projecr
 on:
   issues:
-    types: [opened]
-  pull_request:
-    types: [opened]
+    types: [closed]
 
 jobs:
   add_to_project:
-    name: Add to Project
+    name: Project Update
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: austenstone/project-add@main
+      - uses: austenstone/project-update@v1
         with:
-          user: ${{ github.repository_owner }}
+          # The number of the project. Get this from the URL.
           project-number: 1
-          github-token: "${{ secrets.token }}"
-        id: project-add
-      - uses: austenstone/project-update@main
-        with:
-          user: ${{ github.repository_owner }}
-          project-number: 1
-          github-token: "${{ secrets.token }}"
-          item-id: ${{ steps.project-add.outputs.id }}
-          field-names: product,priority
-          field-values: back-end,high
+          # The item Id of the issue or pull request.
+          item-id: 12
+          # The GITHUB_TOKEN secret
+          github-token: ${{ secrets.token }}
+          # The user that owns the project.
+          user: 'BryanGoesWu'
+          # CSV fields to modify.
+          fields: No Status
+          # CSV fields values.
+          fields-value: Closed
+      
 
